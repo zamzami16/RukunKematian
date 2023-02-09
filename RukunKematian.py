@@ -7,6 +7,8 @@ Requirements:
 import streamlit as st
 import pandas as pd
 from st_aggrid import GridOptionsBuilder, AgGrid
+from datetime import datetime
+import pytz
 
 st.set_page_config(
     page_title="Rukun Kematian",
@@ -69,6 +71,12 @@ gridOptions = gb.build()
 # st.write("### Streamlit AgGrid")
 AgGrid(dff, gridOptions=gridOptions)
 
+st.write(
+    "### Saldo sekarang Tgl: {1} | Rp{0}".format(
+        dff["Pemasukan"].sum() - dff["Pengeluaran"].sum(),
+        datetime.now(pytz.timezone("Asia/Jakarta")).strftime("%d-%m-%Y")
+    )
+)
 
 # st.write("Created with :purple_heart: by Zami16")
 st.markdown(
